@@ -1,6 +1,7 @@
 local MakePlayerCharacter = require "prefabs/player_common"
 
 local assets = {
+        Asset( "SCRIPT", "scripts/prefabs/player_common.lua"),
         Asset( "ANIM", "anim/player_basic.zip" ),
         Asset( "ANIM", "anim/player_idles_shiver.zip" ),
         Asset( "ANIM", "anim/player_actions.zip" ),
@@ -26,19 +27,54 @@ local assets = {
         Asset( "ANIM", "anim/shadow_hands.zip" ),
         Asset( "SOUND", "sound/sfx.fsb" ),
         Asset( "SOUND", "sound/wilson.fsb" ),
-        Asset( "ANIM", "anim/beard.zip" ),
 
         Asset( "ANIM", "anim/Muri.zip" ),
 }
 
-local prefabs = {}
+TUNING.GAMEMODE_STARTING_ITEMS.DEFAULT.MURI = {
+    "flint",
+	"flint",
+	"twigs",
+	"twigs",
+}
+
 local start_inv = {}
+for k, v in pairs(TUNING.GAMEMODE_STARTING_ITEMS) do
+    start_inv[string.lower(k)] = v.MURI
+end
+
+local prefabs = FlattenTree(start_inv, true)
+
+-- 角色没死亡时, 设置速度
+local function onbecamehuman(inst)
+	-- Set speed when not a ghost (optional)
+	inst.components.locomotor:SetExternalSpeedMultiplier(inst, "Muri_speed_mod", 1)
+end
+
+local function onbecameghost(inst)
+	-- Remove speed modifier when becoming a ghost
+   inst.components.locomotor:RemoveExternalSpeedMultiplier(inst, "Muri_speed_mod")
+end
+
+local function onload(inst)
+    inst:ListenForEvent("ms_respawnedfromghost", onbecamehuman)
+    inst:ListenForEvent("ms_becameghost", onbecameghost)
+
+    if inst:HasTag("playerghost") then
+        onbecameghost(inst)
+    else
+        onbecamehuman(inst)
+    end
+end
+
+local common = function(e)
+    e.MiniMapEntity:SetIcon("Muri.tex")   
+end
 
 local main = function(e)
-	e.soundsname = "willow"
+    e.starting_inventory = start_inv[TheNet:GetServerGameMode()] or start_inv.default 
 	
-	e.entity:AddMiniMapEntity()
-	e.MiniMapEntity:SetIcon("Muri.tex")
+    e.soundsname = "willow"
 	
 	e.components.health:SetMaxHealth(TUNING.COMMON_HEALTH)
 	e.components.hunger:SetMax(TUNING.COMMON_HUNGER)
@@ -50,6 +86,9 @@ local main = function(e)
 	
 	e.components.locomotor.walkspeed = TUNING.COMMON_WALK_SPEED
 	e.components.locomotor.runspeed = TUNING.COMMON_RUN_SPEED
+
+    e.OnLoad = onload
+    e.OnNewSpawn = onload
 end
 
-return MakePlayerCharacter("Muri", prefabs, assets, main, start_inv)
+return MakePlayerCharacter("Muri", prefabs, assets, common, main, start_inv)

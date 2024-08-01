@@ -7,8 +7,18 @@ forumthread = ""
 
 api_version = 10
 
-dst_compatible = false
+dst_compatible = true
+
+dont_starve_compatible = true
+reign_of_giants_compatible = true
+shipwrecked_compatible = true
+
 all_clients_require_mod = true
 
 icon_atlas = "modicon.xml"
 icon = "modicon.tex"
+
+server_filter_tags = {
+    "character",
+}
+    
