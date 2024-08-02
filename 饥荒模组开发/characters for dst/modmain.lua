@@ -3,18 +3,26 @@ PrefabFiles = {
 }
 
 Assets = {
+    -- IMAGE文件 为资源本体
+    -- ATLAS文件 为资源信息
+    
+    -- 游戏存档上的人物图标资源
     Asset( "IMAGE", "images/saveslot_portraits/Muri.tex" ),
     Asset( "ATLAS", "images/saveslot_portraits/Muri.xml" ),
-
+    
+    -- 游戏人物选择界面的人物图标
     Asset( "IMAGE", "images/selectscreen_portraits/Muri.tex" ),
     Asset( "ATLAS", "images/selectscreen_portraits/Muri.xml" ),
 	
+    -- 游戏人物选择界面的人物剪影图标
     Asset( "IMAGE", "images/selectscreen_portraits/Muri_silho.tex" ),
     Asset( "ATLAS", "images/selectscreen_portraits/Muri_silho.xml" ),
-
+    
+    -- 人物选择后的预览图
     Asset( "IMAGE", "bigportraits/Muri.tex" ),
     Asset( "ATLAS", "bigportraits/Muri.xml" ),
 	
+    -- 人物在地图上的小图标
 	Asset( "IMAGE", "images/map_icons/Muri.tex" ),
 	Asset( "ATLAS", "images/map_icons/Muri.xml" ),
 

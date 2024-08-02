@@ -9,23 +9,27 @@
 	"Like \"this\"."
 ]]
 return {
+    -- 错误行为消息
 	ACTIONFAIL =
 	{
+        -- 剃毛
 		SHAVE =
 		{
-			AWAKEBEEFALO = "I'm not going to try that while he's awake.",
-			GENERIC = "I can't shave that!",
-			NOBITS = "There isn't even any stubble left!",
+			AWAKEBEEFALO = "它还醒着, 我不能这么做.",
+			GENERIC = "我不能刮那个!",
+			NOBITS = "那个一点都没了!",
 		},
+        -- 存储
 		STORE =
 		{
-			GENERIC = "It's full.",
-			NOTALLOWED = "That can't go in there.",
+			GENERIC = "它满了.",
+			NOTALLOWED = "那儿不能进去.",
 		},
 	},
-	ACTIONFAIL_GENERIC = "I can't do that.",
-	ANNOUNCE_ADVENTUREFAIL = "That didn't go well. I'll have to try again.",
-	ANNOUNCE_BEES = "BEEEEEEEEEEEEES!!!!",
+    -- 行为错误的一般消息
+	ACTIONFAIL_GENERIC = "我不能这么做.",
+	ANNOUNCE_ADVENTUREFAIL = "这么做不是很好, 但我会试一试.",
+	ANNOUNCE_BEES = "是.....密.....蜂.....!!!!",
 	ANNOUNCE_BOOMERANG = "Ow! I should try to catch that!",
 	ANNOUNCE_CHARLIE = "What was that?!",
 	ANNOUNCE_CHARLIE_ATTACK = "OW! Something bit me!",
